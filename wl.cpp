@@ -37,9 +37,9 @@ int getChildIndex(char key)
 /******************************
 * Insert word into the Trie
 *******************************/
-void InsertWord(string word, int wordNum, shared_ptr<Node> node)
+void InsertWord(string word, int wordNum, Node *node)
 {
-	shared_ptr<Node> crawl = node;
+	Node *crawl = node;
 
 	for (int i = 0; i < word.length(); i++)
 	{
@@ -50,7 +50,7 @@ void InsertWord(string word, int wordNum, shared_ptr<Node> node)
 			crawl->children[index] = new Node(word.at(i));
 		}
 
-		crawl.reset(crawl->children[index]);
+		crawl = crawl->children[index];
 	}
 	int mapSize = crawl->occurrNumFileNumMap.size();
 
@@ -61,7 +61,7 @@ void InsertWord(string word, int wordNum, shared_ptr<Node> node)
 /*************************************
 	Searches for the word in the Trie
 **************************************/
-int SearchWord(string word, int occurrence, shared_ptr<Node> node)
+int SearchWord(string word, int occurrence, Node *node)
 {
 	shared_ptr<Node> crawl(node);
 
@@ -98,7 +98,7 @@ void driver()
 {
 	string command;
 
-	shared_ptr<Node> root;
+	Node *root;
 
 	while (1)
 	{
@@ -142,7 +142,7 @@ void driver()
 			if (myfile.is_open())
 			{
 				// Clear data structure
-				root.reset(new Node());
+				root = new Node();
 
 				int wordCount = 0;
 				while (getline(myfile, line))
@@ -238,7 +238,7 @@ void driver()
 				continue;
 			}
 
-			root.reset(new Node());
+			root = new Node();
 		}
 		else if (word == "end")
 		{
