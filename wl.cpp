@@ -297,4 +297,7 @@ int main()
 		}
 		myfile.close();
 	}
+
+	int num = SearchWord("song", 1, root);
+	cout << num;
 }
