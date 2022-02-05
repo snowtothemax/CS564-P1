@@ -11,30 +11,17 @@
 
 using namespace std;
 
-const int CHILD_SIZE = 37;
+/*
+	Node Class Decl.
+*/
 
-/* *****************************
-	Trie Node
-**********************************/
-class Node
-{
-
-public:
-	char data;								// the letter
-	bool endOfWord;							// indicates if is end of a word
-	std::map<int, int> occurrNumFileNumMap; // map of occurrence to Word Num
-	Node *children[CHILD_SIZE];				// the children of the node
-
-	Node();
-
-	Node(char val);
-};
-
+// Default Constructor
 Node::Node() : data('-'),
 			   endOfWord(false)
 {
 }
 
+// Construct Node with data val
 Node::Node(char val) : data(val),
 					   endOfWord(false) {}
 
@@ -103,7 +90,9 @@ int SearchWord(string word, int occurrence, Node *node)
 	return crawl->occurrNumFileNumMap[occurrence];
 }
 
-// Helper for making strings lower case
+/*
+Returns lower case string of input str
+*/
 string toLowerCase(string str)
 {
 	transform(str.begin(), str.end(), str.begin(), [](unsigned char c)
@@ -112,22 +101,15 @@ string toLowerCase(string str)
 	return str
 }
 
-enum Commands
-{
-	LOAD,
-	LOCATE,
-	NEW,
-	END
-}
-
-// Main Method
-int
-main()
+/***********************
+	Main Method
+*************************/
+int main()
 {
 	// First want to accept input
 	string command;
 
-	Node root = new Node();
+	Node root;
 
 	while (1)
 	{
@@ -138,11 +120,16 @@ main()
 		string word;
 
 		/////// First Command Check /////////
-		ss >> word;
+		if (!(ss >> word))
+		{
+			cout << "ERROR: Invalid command" << endl;
+			continue;
+		}
 		word = toLowerCase(word);
 
 		if (word == "load")
 		{
+			// ERROR
 			//there is not enough arguments
 			if (!(ss >> word))
 			{
@@ -150,6 +137,7 @@ main()
 			}
 			else
 			{
+				// ERROR too many args
 				// test if too many input
 				string testWord;
 				if (ss >> testWord)
@@ -161,8 +149,12 @@ main()
 					string line;
 					ifstream myfile(word);
 
+					// TEST if file is valid or invalid
 					if (myfile.is_open())
 					{
+						// Clear data structure
+						root = new Node();
+
 						int wordCount = 0;
 						while (getline(myfile, line))
 						{
@@ -173,9 +165,11 @@ main()
 							while (ss >> wordToAdd)
 							{
 								wordCount++;
+								// ignore all but apostrophe
 								wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '!'), wordToAdd.end());
 								wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '?'), wordToAdd.end());
 								wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '.'), wordToAdd.end());
+								wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), ','), wordToAdd.end());
 								wordToAdd = toLowerCase(wordToAdd);
 
 								InsertWord(wordToAdd, wordCount, root)
@@ -193,20 +187,26 @@ main()
 		else if (word == "locate")
 		{
 			string wordToLocate;
-			// get the word
 
+			// get the word
 			if (ss >> wordToLocate)
 			{
 				int wordOccurrence;
+
+				// get the occurrence
 				if (ss >> wordOccurrence)
 				{
+					// ERROR
+					// Too many args
 					string testWord;
 					if (!(ss >> testWord))
 					{
 						cout << "ERROR: Invalid command" << endl;
 					}
+					// Valid Command
 					else
 					{
+						// Searches for the word and if the returned number is -1, output not found
 						int wordNumber = SearchWord(wordToLocate, wordOccurrence, root);
 
 						if (wordNumber != -1)
@@ -231,9 +231,22 @@ main()
 		}
 		else if (word == "new")
 		{
+			// test if valid comand
+			string testWord;
+			if (ss >> testWord)
+			{
+				cout << "ERROR: Invalid command" << endl;
+			}
+			else
+			{
+				// reset data structure
+				root = new Node();
+			}
 		}
 		else if (word == "end")
 		{
+			// end program
+			break;
 		}
 		else
 		{
