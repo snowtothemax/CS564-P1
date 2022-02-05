@@ -120,11 +120,10 @@ void driver()
 		/////// First Command Check /////////
 		if (!(ss >> word))
 		{
-			cout << "ERROR: Invalid command" << endl;
+			cout << ">ERROR: Invalid command" << endl;
 			continue;
 		}
 		word = toLowerCase(word);
-		cout << '>';
 
 		if (word == "load")
 		{
@@ -132,58 +131,54 @@ void driver()
 			//there is not enough arguments
 			if (!(ss >> word))
 			{
-				cout << "ERROR: Invalid command" << endl;
+				cout << ">ERROR: Invalid command" << endl;
 				continue;
+			}
+
+			// ERROR too many args
+			// test if too many input
+			string testWord;
+			if (ss >> testWord)
+			{
+				cout << ">ERROR: Invalid command" << endl;
+				continue;
+			}
+
+			string line;
+			ifstream myfile(word);
+
+			// TEST if file is valid or invalid
+			if (myfile.is_open())
+			{
+				// Clear data structure
+				root = new Node();
+
+				int wordCount = 0;
+				while (getline(myfile, line))
+				{
+					stringstream stream(line);
+					string wordToAdd;
+
+					// Add Each word
+					while (stream >> wordToAdd)
+					{
+						wordCount++;
+						// ignore all but apostrophe
+						wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '!'), wordToAdd.end());
+						wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '?'), wordToAdd.end());
+						wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '.'), wordToAdd.end());
+						wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), ','), wordToAdd.end());
+						wordToAdd = toLowerCase(wordToAdd);
+
+						InsertWord(wordToAdd, wordCount, root);
+					}
+				}
+				myfile.close();
 			}
 			else
 			{
-				// ERROR too many args
-				// test if too many input
-				string testWord;
-				if (ss >> testWord)
-				{
-					cout << "ERROR: Invalid command" << endl;
-					continue;
-				}
-				else
-				{
-					string line;
-					ifstream myfile(word);
-
-					// TEST if file is valid or invalid
-					if (myfile.is_open())
-					{
-						// Clear data structure
-						root = new Node();
-
-						int wordCount = 0;
-						while (getline(myfile, line))
-						{
-							stringstream stream(line);
-							string wordToAdd;
-
-							// Add Each word
-							while (stream >> wordToAdd)
-							{
-								wordCount++;
-								// ignore all but apostrophe
-								wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '!'), wordToAdd.end());
-								wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '?'), wordToAdd.end());
-								wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '.'), wordToAdd.end());
-								wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), ','), wordToAdd.end());
-								wordToAdd = toLowerCase(wordToAdd);
-
-								InsertWord(wordToAdd, wordCount, root);
-							}
-						}
-						myfile.close();
-					}
-					else
-					{
-						cout << "ERROR: Invalid command" << endl;
-						continue;
-					}
-				}
+				cout << ">ERROR: Invalid command" << endl;
+				continue;
 			}
 		}
 		else if (word == "locate")
@@ -203,37 +198,35 @@ void driver()
 					string testWord;
 					if (ss >> testWord)
 					{
-						cout << "ERROR: Invalid command" << endl;
+						cout << ">ERROR: Invalid command" << endl;
 						continue;
 					}
 					// Valid Command
+
+					wordToLocate = toLowerCase(wordToLocate);
+
+					// Searches for the word and if the returned number is -1, output not found
+					int wordNumber = SearchWord(wordToLocate, wordOccurrence, root);
+
+					if (wordNumber != 0 && wordNumber != -1)
+					{
+						cout << ">" << wordNumber << endl;
+					}
 					else
 					{
-						wordToLocate = toLowerCase(wordToLocate);
-
-						// Searches for the word and if the returned number is -1, output not found
-						int wordNumber = SearchWord(wordToLocate, wordOccurrence, root);
-
-						if (wordNumber != 0 && wordNumber != -1)
-						{
-							cout << wordNumber << endl;
-						}
-						else
-						{
-							cout << "No entry found" << endl;
-							continue;
-						}
+						cout << ">No entry found" << endl;
+						continue;
 					}
 				}
 				else
 				{
-					cout << "ERROR: Invalid command" << endl;
+					cout << ">ERROR: Invalid command" << endl;
 					continue;
 				}
 			}
 			else
 			{
-				cout << "ERROR: Invalid command" << endl;
+				cout << ">ERROR: Invalid command" << endl;
 				continue;
 			}
 		}
@@ -243,14 +236,11 @@ void driver()
 			string testWord;
 			if (ss >> testWord)
 			{
-				cout << "ERROR: Invalid command" << endl;
+				cout << ">ERROR: Invalid command" << endl;
 				continue;
 			}
-			else
-			{
-				// reset data structure
-				root = new Node();
-			}
+
+			root = new Node();
 		}
 		else if (word == "end")
 		{
@@ -259,7 +249,7 @@ void driver()
 		}
 		else
 		{
-			cout << "ERROR: Invalid command" << endl;
+			cout << ">ERROR: Invalid command" << endl;
 			continue;
 		}
 
