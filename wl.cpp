@@ -112,7 +112,7 @@ void driver()
 	while (1)
 	{
 		cout << '>';
-		cin >> command;
+		getline(cin, command);
 
 		stringstream ss(command);
 		string word;
