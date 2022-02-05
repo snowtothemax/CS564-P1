@@ -199,6 +199,7 @@ void driver()
 				// get the occurrence
 				if (ss >> wordOccurrence)
 				{
+					cout << wordOccurrence << endl;
 					// ERROR
 					// Too many args
 					string testWord;
