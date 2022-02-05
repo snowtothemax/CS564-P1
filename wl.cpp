@@ -117,8 +117,6 @@ void driver()
 		stringstream ss(command);
 		string word;
 
-		cout << command << endl;
-
 		/////// First Command Check /////////
 		if (!(ss >> word))
 		{
@@ -148,7 +146,6 @@ void driver()
 				}
 				else
 				{
-					cout << word << endl;
 					string line;
 					ifstream myfile(word);
 
@@ -195,6 +192,8 @@ void driver()
 			// get the word
 			if (ss >> wordToLocate)
 			{
+				cout << wordToLocate << endl;
+
 				int wordOccurrence;
 
 				// get the occurrence
