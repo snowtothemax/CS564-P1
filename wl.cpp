@@ -18,7 +18,10 @@ Node::Node(char val) : data(val),
 // Destructor
 Node::~Node()
 {
-	delete[] children;
+	for (int i = 0; i < 37; i++)
+	{
+		delete children[i];
+	}
 }
 
 /*******************************************************
@@ -149,7 +152,6 @@ void driver()
 			{
 				// Clear data structure
 				delete root;
-				root = NULL;
 				root = new Node();
 
 				int wordCount = 0;
