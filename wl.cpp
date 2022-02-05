@@ -192,18 +192,15 @@ void driver()
 			// get the word
 			if (ss >> wordToLocate)
 			{
-				cout << wordToLocate << endl;
-
 				int wordOccurrence;
 
 				// get the occurrence
 				if (ss >> wordOccurrence)
 				{
-					cout << wordOccurrence << endl;
 					// ERROR
 					// Too many args
 					string testWord;
-					if (!(ss >> testWord))
+					if (ss >> testWord)
 					{
 						cout << "ERROR: Invalid command" << endl;
 						continue;
@@ -211,7 +208,6 @@ void driver()
 					// Valid Command
 					else
 					{
-						cout << "Got Here" << endl;
 						// Searches for the word and if the returned number is -1, output not found
 						int wordNumber = SearchWord(wordToLocate, wordOccurrence, root);
 
