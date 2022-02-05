@@ -299,5 +299,11 @@ int main()
 	}
 
 	int num = SearchWord("song", 1, root);
+	cout << num << endl;
+	num = SearchWord("pie", 1, root);
+	cout << num << endl;
+	num = SearchWord("pie", 2, root);
+	cout << num << endl;
+	num = SearchWord("pie", 3, root);
 	cout << num;
 }
