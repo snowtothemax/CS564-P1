@@ -56,7 +56,7 @@ void InsertWord(string word, int wordNum, Node *node)
 
 		if (!crawl->children[index])
 		{
-			crawl->children[index] = new Node();
+			crawl->children[index] = new Node(word.at(i));
 		}
 
 		crawl = crawl->children[index];
