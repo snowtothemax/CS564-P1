@@ -63,7 +63,7 @@ void InsertWord(string word, int wordNum, Node *node)
 **************************************/
 int SearchWord(string word, int occurrence, Node *node)
 {
-	shared_ptr<Node> crawl(node);
+	Node *crawl = node;
 
 	for (int i = 0; i < word.length(); i++)
 	{
@@ -74,7 +74,7 @@ int SearchWord(string word, int occurrence, Node *node)
 			return -1;
 		}
 
-		crawl.reset(crawl->children[index]);
+		crawl = crawl->children[index];
 	}
 
 	return crawl->occurrNumFileNumMap[occurrence];
@@ -142,6 +142,8 @@ void driver()
 			if (myfile.is_open())
 			{
 				// Clear data structure
+				root = NULL;
+				delete root;
 				root = new Node();
 
 				int wordCount = 0;
@@ -238,6 +240,8 @@ void driver()
 				continue;
 			}
 
+			root = NULL;
+			delete root;
 			root = new Node();
 		}
 		else if (word == "end")
