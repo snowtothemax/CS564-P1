@@ -81,6 +81,7 @@ int SearchWord(string word, int occurrence, Node *node)
 
 		if (crawl->children.find(key) == crawl->children.end())
 		{
+			cout << "error finding key" << endl;
 			return -1;
 		}
 
@@ -213,6 +214,8 @@ void driver()
 					// Valid Command
 
 					wordToLocate = toLowerCase(wordToLocate);
+
+					cout << root << endl;
 
 					// Searches for the word and if the returned number is -1, output not found
 					int wordNumber = SearchWord(wordToLocate, wordOccurrence, root);
