@@ -112,7 +112,7 @@ void driver()
 {
 	string command;
 
-	Node *root = NULL;
+	Node *root = new Node();
 
 	while (1)
 	{
