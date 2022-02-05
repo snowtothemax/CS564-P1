@@ -93,6 +93,9 @@ string toLowerCase(string str)
 
 void deleteTree(Node *node)
 {
+	if (!node)
+		return;
+
 	for (Node *child : node->children)
 	{
 		if (child)
@@ -113,7 +116,7 @@ void driver()
 {
 	string command;
 
-	Node *root;
+	Node *root = nullptr;
 
 	while (1)
 	{
