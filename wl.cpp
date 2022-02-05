@@ -1,6 +1,4 @@
 #include <iostream>
-#include <stdint>
-#include <stdio>
 #include <vector>
 #include <map>
 #include <sstream>
@@ -40,7 +38,7 @@ int getChildIndex(char key)
 	}
 	else
 	{
-		return 36
+		return 36;
 	}
 }
 
@@ -96,9 +94,9 @@ Returns lower case string of input str
 string toLowerCase(string str)
 {
 	transform(str.begin(), str.end(), str.begin(), [](unsigned char c)
-			  { return std::tolower(c); }););
+			  { return std::tolower(c); });
 
-	return str
+	return str;
 }
 
 /***********************
@@ -109,7 +107,7 @@ int main()
 	// First want to accept input
 	string command;
 
-	Node root;
+	Node *root;
 
 	while (1)
 	{
@@ -134,6 +132,7 @@ int main()
 			if (!(ss >> word))
 			{
 				cout << "ERROR: Invalid command" << endl;
+				continue;
 			}
 			else
 			{
@@ -143,6 +142,7 @@ int main()
 				if (ss >> testWord)
 				{
 					cout << "ERROR: Invalid command" << endl;
+					continue;
 				}
 				else
 				{
@@ -172,7 +172,7 @@ int main()
 								wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), ','), wordToAdd.end());
 								wordToAdd = toLowerCase(wordToAdd);
 
-								InsertWord(wordToAdd, wordCount, root)
+								InsertWord(wordToAdd, wordCount, root);
 							}
 						}
 						myfile.close();
@@ -180,6 +180,7 @@ int main()
 					else
 					{
 						cout << "ERROR: Invalid command" << endl;
+						continue;
 					}
 				}
 			}
@@ -202,6 +203,7 @@ int main()
 					if (!(ss >> testWord))
 					{
 						cout << "ERROR: Invalid command" << endl;
+						continue;
 					}
 					// Valid Command
 					else
@@ -216,17 +218,20 @@ int main()
 						else
 						{
 							cout << "No entry found" << endl;
+							continue;
 						}
 					}
 				}
 				else
 				{
 					cout << "ERROR: Invalid command" << endl;
+					continue;
 				}
 			}
 			else
 			{
 				cout << "ERROR: Invalid command" << endl;
+				continue;
 			}
 		}
 		else if (word == "new")
@@ -236,6 +241,7 @@ int main()
 			if (ss >> testWord)
 			{
 				cout << "ERROR: Invalid command" << endl;
+				continue;
 			}
 			else
 			{
@@ -251,6 +257,7 @@ int main()
 		else
 		{
 			cout << "ERROR: Invalid command" << endl;
+			continue;
 		}
 	}
 }
