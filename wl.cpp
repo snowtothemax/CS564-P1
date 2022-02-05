@@ -4,6 +4,7 @@
 #include <sstream>
 #include <algorithm>
 #include <fstream>
+#include <memory>
 
 #include "wl.h"
 
