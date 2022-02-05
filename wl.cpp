@@ -91,6 +91,21 @@ string toLowerCase(string str)
 	return str;
 }
 
+void deleteTree(Node *node)
+{
+	for (Node *child : node->children)
+	{
+		if (child)
+		{
+			deleteTree(node);
+		}
+	}
+
+	/* then delete the node */
+	cout << "\n Deleting node: " << node->data;
+	delete node;
+}
+
 /***********************
 	Main Method
 *************************/
@@ -240,7 +255,7 @@ void driver()
 				continue;
 			}
 
-			root = NULL;
+			deleteTree(root);
 			delete root;
 			root = new Node();
 		}
