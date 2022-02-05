@@ -47,11 +47,10 @@ void InsertWord(string word, int wordNum, shared_ptr<Node> node)
 
 		if (!crawl->children[index])
 		{
-			shared_ptr<Node> newNode(new Node(word.at(i)));
-			crawl->children[index];
+			crawl->children[index] = new Node(word.at(i));
 		}
 
-		crawl = crawl->children[index];
+		crawl.reset(crawl->children[index]);
 	}
 	int mapSize = crawl->occurrNumFileNumMap.size();
 
@@ -75,7 +74,7 @@ int SearchWord(string word, int occurrence, shared_ptr<Node> node)
 			return -1;
 		}
 
-		crawl = crawl->children[index];
+		crawl.reset(crawl->children[index]);
 	}
 
 	return crawl->occurrNumFileNumMap[occurrence];
