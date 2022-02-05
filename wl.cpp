@@ -213,7 +213,7 @@ void driver()
 						// Searches for the word and if the returned number is -1, output not found
 						int wordNumber = SearchWord(wordToLocate, wordOccurrence, root);
 
-						if (wordNumber != 0 || wordNumber != 0)
+						if (wordNumber != 0 || wordNumber != -1)
 						{
 							cout << wordNumber << endl;
 						}
