@@ -151,6 +151,7 @@ void driver()
 			if (myfile.is_open())
 			{
 				// Clear data structure
+				delete root;
 				root = new Node();
 
 				int wordCount = 0;
@@ -240,6 +241,7 @@ void driver()
 				continue;
 			}
 
+			delete root;
 			root = new Node();
 		}
 		else if (word == "end")
