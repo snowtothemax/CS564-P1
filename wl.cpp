@@ -71,6 +71,7 @@ void InsertWord(string word, int wordNum, Node *node)
 **************************************/
 int SearchWord(string word, int occurrence, Node *node)
 {
+
 	Node *crawl = node;
 
 	for (int i = 0; i < word.length(); i++)
@@ -107,7 +108,7 @@ void driver()
 	// First want to accept input
 	string command;
 
-	Node *root;
+	Node *root = new Node();
 
 	while (1)
 	{
@@ -212,7 +213,7 @@ void driver()
 						// Searches for the word and if the returned number is -1, output not found
 						int wordNumber = SearchWord(wordToLocate, wordOccurrence, root);
 
-						if (wordNumber != -1)
+						if (wordNumber != 0 || wordNumber != 0)
 						{
 							cout << wordNumber << endl;
 						}
