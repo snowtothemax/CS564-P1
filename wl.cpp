@@ -146,6 +146,7 @@ void driver()
 				}
 				else
 				{
+					cout << word << endl;
 					string line;
 					ifstream myfile(word);
 
