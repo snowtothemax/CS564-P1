@@ -117,6 +117,8 @@ void driver()
 		stringstream ss(command);
 		string word;
 
+		cout << command << endl;
+
 		/////// First Command Check /////////
 		if (!(ss >> word))
 		{
