@@ -1,13 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <map>
-#include <sstream>
-#include <algorithm>
-#include <fstream>
-#include <memory>
-
 #include "wl.h"
-
 using namespace std;
 
 /*

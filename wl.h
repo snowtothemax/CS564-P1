@@ -1,3 +1,10 @@
+#include <iostream>
+#include <vector>
+#include <map>
+#include <sstream>
+#include <algorithm>
+#include <fstream>
+#include <memory>
 
 #ifndef WL_H
 #define WL_H
