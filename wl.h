@@ -14,7 +14,7 @@ public:
     char data;                              // the letter
     bool endOfWord;                         // indicates if is end of a word
     std::map<int, int> occurrNumFileNumMap; // map of occurrence to Word Num
-    Node *children[CHILD_SIZE];             // the children of the node
+    shared_ptr<Node> children[CHILD_SIZE];  // the children of the node
 
     Node();
 

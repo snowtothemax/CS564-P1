@@ -45,9 +45,9 @@ int getChildIndex(char key)
 /******************************
 * Insert word into the Trie
 *******************************/
-void InsertWord(string word, int wordNum, Node *node)
+void InsertWord(string word, int wordNum, shared_ptr<Node> node)
 {
-	Node *crawl = node;
+	shared_ptr<Node> crawl = node;
 
 	for (int i = 0; i < word.length(); i++)
 	{
@@ -55,7 +55,8 @@ void InsertWord(string word, int wordNum, Node *node)
 
 		if (!crawl->children[index])
 		{
-			crawl->children[index] = new Node(word.at(i));
+			shared_ptr<Node> newNode(new Node(word.at(i)));
+			crawl->children[index] = newNode;
 		}
 
 		crawl = crawl->children[index];
@@ -69,10 +70,9 @@ void InsertWord(string word, int wordNum, Node *node)
 /*************************************
 	Searches for the word in the Trie
 **************************************/
-int SearchWord(string word, int occurrence, Node *node)
+int SearchWord(string word, int occurrence, shared_ptr<Node> node)
 {
-
-	Node *crawl = node;
+	shared_ptr<Node> crawl(node);
 
 	for (int i = 0; i < word.length(); i++)
 	{
@@ -107,7 +107,7 @@ void driver()
 {
 	string command;
 
-	Node *root = new Node();
+	shared_ptr<Node> root;
 
 	while (1)
 	{
@@ -151,8 +151,7 @@ void driver()
 			if (myfile.is_open())
 			{
 				// Clear data structure
-				delete root;
-				root = new Node();
+				root.reset(new Node());
 
 				int wordCount = 0;
 				while (getline(myfile, line))
@@ -194,6 +193,13 @@ void driver()
 				// get the occurrence
 				if (ss >> wordOccurrence)
 				{
+					// ERROR
+					// Occurrence must be greater than 0
+					if (wordOccurrence < 1)
+					{
+						cout << ">ERROR: Invalid command" << endl;
+						continue;
+					}
 					// ERROR
 					// Too many args
 					string testWord;
@@ -241,8 +247,7 @@ void driver()
 				continue;
 			}
 
-			delete root;
-			root = new Node();
+			root.reset(new Node());
 		}
 		else if (word == "end")
 		{
@@ -259,51 +264,51 @@ void driver()
 	}
 }
 
-void test_insertWithSomeLocate()
-{
-	Node *root;
-	string word = "sixpence.txt";
-	string line;
-	ifstream myfile(word);
+// void test_insertWithSomeLocate()
+// {
+// 	Node *root;
+// 	string word = "sixpence.txt";
+// 	string line;
+// 	ifstream myfile(word);
 
-	// TEST if file is valid or invalid
-	if (myfile.is_open())
-	{
-		// Clear data structure
-		root = new Node();
+// 	// TEST if file is valid or invalid
+// 	if (myfile.is_open())
+// 	{
+// 		// Clear data structure
+// 		root = new Node();
 
-		int wordCount = 0;
-		while (getline(myfile, line))
-		{
-			stringstream stream(line);
-			string wordToAdd;
+// 		int wordCount = 0;
+// 		while (getline(myfile, line))
+// 		{
+// 			stringstream stream(line);
+// 			string wordToAdd;
 
-			// Add Each word
-			while (stream >> wordToAdd)
-			{
-				wordCount++;
-				// ignore all but apostrophe
-				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '!'), wordToAdd.end());
-				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '?'), wordToAdd.end());
-				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '.'), wordToAdd.end());
-				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), ','), wordToAdd.end());
-				wordToAdd = toLowerCase(wordToAdd);
+// 			// Add Each word
+// 			while (stream >> wordToAdd)
+// 			{
+// 				wordCount++;
+// 				// ignore all but apostrophe
+// 				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '!'), wordToAdd.end());
+// 				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '?'), wordToAdd.end());
+// 				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '.'), wordToAdd.end());
+// 				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), ','), wordToAdd.end());
+// 				wordToAdd = toLowerCase(wordToAdd);
 
-				InsertWord(wordToAdd, wordCount, root);
-			}
-		}
-		myfile.close();
-	}
+// 				InsertWord(wordToAdd, wordCount, root);
+// 			}
+// 		}
+// 		myfile.close();
+// 	}
 
-	int num = SearchWord("song", 1, root);
-	cout << num << endl;
-	num = SearchWord("pie", 1, root);
-	cout << num << endl;
-	num = SearchWord("pie", 2, root);
-	cout << num << endl;
-	num = SearchWord("pie", 3, root);
-	cout << num;
-}
+// 	int num = SearchWord("song", 1, root);
+// 	cout << num << endl;
+// 	num = SearchWord("pie", 1, root);
+// 	cout << num << endl;
+// 	num = SearchWord("pie", 2, root);
+// 	cout << num << endl;
+// 	num = SearchWord("pie", 3, root);
+// 	cout << num;
+// }
 
 int main()
 {
