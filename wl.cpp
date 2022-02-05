@@ -72,6 +72,11 @@ void InsertWord(string word, int wordNum, Node *node)
 **************************************/
 int SearchWord(string word, int occurrence, Node *node)
 {
+	if (node == NULL)
+	{
+		return -1;
+	}
+
 	Node *crawl = node;
 
 	for (int i = 0; i < word.length(); i++)
@@ -107,7 +112,7 @@ void driver()
 {
 	string command;
 
-	Node *root = new Node();
+	Node *root = NULL;
 
 	while (1)
 	{
@@ -151,8 +156,11 @@ void driver()
 			if (myfile.is_open())
 			{
 				// Clear data structure
-				delete root;
-				root = new Node();
+				if (root != NULL)
+				{
+					delete root;
+					root = new Node();
+				}
 
 				int wordCount = 0;
 				while (getline(myfile, line))
