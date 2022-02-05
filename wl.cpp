@@ -102,7 +102,7 @@ string toLowerCase(string str)
 /***********************
 	Main Method
 *************************/
-int main()
+int driver()
 {
 	// First want to accept input
 	string command;
@@ -162,7 +162,7 @@ int main()
 							string wordToAdd;
 
 							// Add Each word
-							while (ss >> wordToAdd)
+							while (stream >> wordToAdd)
 							{
 								wordCount++;
 								// ignore all but apostrophe
@@ -259,5 +259,42 @@ int main()
 			cout << "ERROR: Invalid command" << endl;
 			continue;
 		}
+	}
+}
+
+int main()
+{
+	Node *root;
+	string word = "sixpence.txt";
+	string line;
+	ifstream myfile(word);
+
+	// TEST if file is valid or invalid
+	if (myfile.is_open())
+	{
+		// Clear data structure
+		root = new Node();
+
+		int wordCount = 0;
+		while (getline(myfile, line))
+		{
+			stringstream stream(line);
+			string wordToAdd;
+
+			// Add Each word
+			while (stream >> wordToAdd)
+			{
+				wordCount++;
+				// ignore all but apostrophe
+				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '!'), wordToAdd.end());
+				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '?'), wordToAdd.end());
+				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '.'), wordToAdd.end());
+				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), ','), wordToAdd.end());
+				wordToAdd = toLowerCase(wordToAdd);
+
+				InsertWord(wordToAdd, wordCount, root);
+			}
+		}
+		myfile.close();
 	}
 }
