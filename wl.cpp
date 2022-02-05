@@ -39,18 +39,23 @@ int getChildIndex(char key)
 *******************************/
 void InsertWord(string word, int wordNum, Node *node)
 {
+	if (node == NULL)
+	{
+		node = new Node();
+	}
+
 	Node *crawl = node;
 
 	for (int i = 0; i < word.length(); i++)
 	{
-		int index = getChildIndex(word.at(i));
+		int key = word.at(i);
 
-		if (!crawl->children[index])
+		if (crawl->children.find(key) == crawl->children.end())
 		{
-			crawl->children[index] = new Node(word.at(i));
+			crawl->children.insert(make_pair(key, new Node(key)));
 		}
 
-		crawl = crawl->children[index];
+		crawl = crawl->children[key];
 	}
 	int mapSize = crawl->occurrNumFileNumMap.size();
 
@@ -63,18 +68,23 @@ void InsertWord(string word, int wordNum, Node *node)
 **************************************/
 int SearchWord(string word, int occurrence, Node *node)
 {
+	if (node == NULL)
+	{
+		return -1;
+	}
+
 	Node *crawl = node;
 
 	for (int i = 0; i < word.length(); i++)
 	{
-		int index = getChildIndex(word.at(i));
+		int key = word.at(i);
 
-		if (!crawl->children[index])
+		if (crawl->children.find(key) == crawl->children.end())
 		{
 			return -1;
 		}
 
-		crawl = crawl->children[index];
+		crawl = crawl->children[key];
 	}
 
 	return crawl->occurrNumFileNumMap[occurrence];
@@ -89,24 +99,6 @@ string toLowerCase(string str)
 			  { return std::tolower(c); });
 
 	return str;
-}
-
-void deleteTree(Node *node)
-{
-	if (!node)
-		return;
-
-	for (Node *child : node->children)
-	{
-		if (child)
-		{
-			deleteTree(node);
-		}
-	}
-
-	/* then delete the node */
-	cout << "\n Deleting node: " << node->data;
-	delete node;
 }
 
 /***********************
@@ -160,9 +152,8 @@ void driver()
 			if (myfile.is_open())
 			{
 				// Clear data structure
-				root = NULL;
 				delete root;
-				root = new Node();
+				root = NULL;
 
 				int wordCount = 0;
 				while (getline(myfile, line))
@@ -258,9 +249,8 @@ void driver()
 				continue;
 			}
 
-			deleteTree(root);
 			delete root;
-			root = new Node();
+			root = NULL;
 		}
 		else if (word == "end")
 		{
