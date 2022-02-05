@@ -15,6 +15,12 @@ Node::Node() : data('-'),
 Node::Node(char val) : data(val),
 					   endOfWord(false) {}
 
+// Destructor
+Node::~Node()
+{
+	delete[] children;
+}
+
 /*******************************************************
 	Gets the encoded index for any acceptable character.
 ********************************************************/
@@ -39,20 +45,15 @@ int getChildIndex(char key)
 *******************************/
 void InsertWord(string word, int wordNum, Node *node)
 {
-	if (node == NULL)
-	{
-		node = new Node();
-	}
-
 	Node *crawl = node;
 
 	for (int i = 0; i < word.length(); i++)
 	{
 		int key = word.at(i);
 
-		if (crawl->children.find(key) == crawl->children.end())
+		if (!crawl->children[key])
 		{
-			crawl->children.insert(make_pair(key, new Node(key)));
+			crawl->children[key] = new Node();
 		}
 
 		crawl = crawl->children[key];
@@ -68,20 +69,14 @@ void InsertWord(string word, int wordNum, Node *node)
 **************************************/
 int SearchWord(string word, int occurrence, Node *node)
 {
-	if (node == NULL)
-	{
-		return -1;
-	}
-
 	Node *crawl = node;
 
 	for (int i = 0; i < word.length(); i++)
 	{
 		int key = word.at(i);
 
-		if (crawl->children.find(key) == crawl->children.end())
+		if (crawl->children[key])
 		{
-			cout << "error finding key" << endl;
 			return -1;
 		}
 
@@ -109,7 +104,7 @@ void driver()
 {
 	string command;
 
-	Node *root = nullptr;
+	Node *root = new Node();
 
 	while (1)
 	{
@@ -155,6 +150,7 @@ void driver()
 				// Clear data structure
 				delete root;
 				root = NULL;
+				root = new Node();
 
 				int wordCount = 0;
 				while (getline(myfile, line))
@@ -171,6 +167,7 @@ void driver()
 						wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '?'), wordToAdd.end());
 						wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '.'), wordToAdd.end());
 						wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), ','), wordToAdd.end());
+						wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '*'), wordToAdd.end());
 						wordToAdd = toLowerCase(wordToAdd);
 
 						InsertWord(wordToAdd, wordCount, root);
@@ -214,8 +211,6 @@ void driver()
 					// Valid Command
 
 					wordToLocate = toLowerCase(wordToLocate);
-
-					cout << root << endl;
 
 					// Searches for the word and if the returned number is -1, output not found
 					int wordNumber = SearchWord(wordToLocate, wordOccurrence, root);
