@@ -18,10 +18,10 @@ class Node
 {
 
 public:
-    char data;                              // the letter
-    bool endOfWord;                         // indicates if is end of a word
-    std::map<int, int> occurrNumFileNumMap; // map of occurrence to Word Num
-    shared_ptr<Node> children[CHILD_SIZE];  // the children of the node
+    char data;                               // the letter
+    bool endOfWord;                          // indicates if is end of a word
+    std::map<int, int> occurrNumFileNumMap;  // map of occurrence to Word Num
+    shared_ptr<Node[]> children[CHILD_SIZE]; // the children of the node
 
     Node();
 

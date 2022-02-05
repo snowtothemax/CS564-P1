@@ -48,7 +48,7 @@ void InsertWord(string word, int wordNum, shared_ptr<Node> node)
 		if (!crawl->children[index])
 		{
 			shared_ptr<Node> newNode(new Node(word.at(i)));
-			crawl->children[index] = newNode;
+			crawl->children[index];
 		}
 
 		crawl = crawl->children[index];
