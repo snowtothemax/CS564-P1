@@ -102,7 +102,7 @@ string toLowerCase(string str)
 /***********************
 	Main Method
 *************************/
-int driver()
+void driver()
 {
 	// First want to accept input
 	string command;
@@ -262,7 +262,7 @@ int driver()
 	}
 }
 
-int main()
+void test_insertWithSomeLocate()
 {
 	Node *root;
 	string word = "sixpence.txt";
@@ -306,4 +306,9 @@ int main()
 	cout << num << endl;
 	num = SearchWord("pie", 3, root);
 	cout << num;
+}
+
+int main()
+{
+	driver();
 }
