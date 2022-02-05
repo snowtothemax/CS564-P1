@@ -105,7 +105,6 @@ string toLowerCase(string str)
 *************************/
 void driver()
 {
-	// First want to accept input
 	string command;
 
 	Node *root = new Node();
@@ -125,6 +124,7 @@ void driver()
 			continue;
 		}
 		word = toLowerCase(word);
+		cout << '>';
 
 		if (word == "load")
 		{
@@ -210,10 +210,11 @@ void driver()
 					else
 					{
 						wordToLocate = toLowerCase(wordToLocate);
+
 						// Searches for the word and if the returned number is -1, output not found
 						int wordNumber = SearchWord(wordToLocate, wordOccurrence, root);
 
-						if (wordNumber != 0 || wordNumber != -1)
+						if (wordNumber != 0 && wordNumber != -1)
 						{
 							cout << wordNumber << endl;
 						}
@@ -261,6 +262,8 @@ void driver()
 			cout << "ERROR: Invalid command" << endl;
 			continue;
 		}
+
+		ss.clear();
 	}
 }
 
