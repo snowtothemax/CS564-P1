@@ -52,14 +52,14 @@ void InsertWord(string word, int wordNum, Node *node)
 
 	for (int i = 0; i < word.length(); i++)
 	{
-		int key = word.at(i);
+		int index = getChildIndex(word.at(i));
 
-		if (!crawl->children[key])
+		if (!crawl->children[index])
 		{
-			crawl->children[key] = new Node();
+			crawl->children[index] = new Node();
 		}
 
-		crawl = crawl->children[key];
+		crawl = crawl->children[index];
 	}
 	int mapSize = crawl->occurrNumFileNumMap.size();
 
@@ -81,14 +81,14 @@ int SearchWord(string word, int occurrence, Node *node)
 
 	for (int i = 0; i < word.length(); i++)
 	{
-		int key = word.at(i);
+		int index = getChildIndex(word.at(i));
 
-		if (crawl->children[key])
+		if (crawl->children[index])
 		{
 			return -1;
 		}
 
-		crawl = crawl->children[key];
+		crawl = crawl->children[index];
 	}
 
 	return crawl->occurrNumFileNumMap[occurrence];
