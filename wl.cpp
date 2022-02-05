@@ -208,6 +208,7 @@ void driver()
 					// Valid Command
 					else
 					{
+						wordToLocate = toLowerCase(wordToLocate);
 						// Searches for the word and if the returned number is -1, output not found
 						int wordNumber = SearchWord(wordToLocate, wordOccurrence, root);
 
