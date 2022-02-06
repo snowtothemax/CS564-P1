@@ -20,8 +20,13 @@ Node::~Node()
 {
 	for (int i = 0; i < 37; i++)
 	{
-		delete children[i];
+		if (children[i])
+		{
+			delete children[i];
+		}
 	}
+
+	delete[] children;
 }
 
 /*******************************************************
