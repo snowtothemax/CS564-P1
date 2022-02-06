@@ -1,5 +1,5 @@
 #include <iostream>
-#include <vector>
+#include <array>
 #include <map>
 #include <sstream>
 #include <algorithm>
@@ -18,10 +18,10 @@ class Node
 {
 
 public:
-    char data;                              // the letter
-    bool endOfWord;                         // indicates if is end of a word
-    std::map<int, int> occurrNumFileNumMap; // map of occurrence to Word Num
-    Node *children[CHILD_SIZE];             // the children of the node
+    char data;                                    // the letter
+    bool endOfWord;                               // indicates if is end of a word
+    std::map<int, int> occurrNumFileNumMap;       // map of occurrence to Word Num
+    array<shared_ptr<Node>, CHILD_SIZE> children; // the children of the node
 
     Node();
 
