@@ -18,6 +18,10 @@ Node::Node(char val) : data(val),
 // Destructor
 Node::~Node()
 {
+	for (int i = 0; i < 37; i++)
+	{
+		delete children[i];
+	}
 }
 
 /*******************************************************
@@ -42,9 +46,9 @@ int getChildIndex(char key)
 /******************************
 * Insert word into the Trie
 *******************************/
-void InsertWord(string word, int wordNum, shared_ptr<Node> node)
+void InsertWord(string word, int wordNum, Node *node)
 {
-	shared_ptr<Node> crawl = node;
+	Node *crawl = node;
 
 	for (int i = 0; i < word.length(); i++)
 	{
@@ -52,7 +56,7 @@ void InsertWord(string word, int wordNum, shared_ptr<Node> node)
 
 		if (!crawl->children[index])
 		{
-			crawl->children[index].reset(new Node(word.at(i)));
+			crawl->children[index] = new Node(word.at(i));
 		}
 
 		crawl = crawl->children[index];
@@ -66,9 +70,9 @@ void InsertWord(string word, int wordNum, shared_ptr<Node> node)
 /*************************************
 	Searches for the word in the Trie
 **************************************/
-int SearchWord(string word, int occurrence, shared_ptr<Node> node)
+int SearchWord(string word, int occurrence, Node *node)
 {
-	shared_ptr<Node> crawl = node;
+	Node *crawl = node;
 
 	for (int i = 0; i < word.length(); i++)
 	{
@@ -103,7 +107,7 @@ void driver()
 {
 	string command;
 
-	shared_ptr<Node> root(new Node());
+	Node *root = new Node();
 
 	while (1)
 	{
@@ -147,7 +151,8 @@ void driver()
 			if (myfile.is_open())
 			{
 				// Clear data structure
-				root.reset(new Node());
+				delete root;
+				root = new Node();
 
 				int wordCount = 0;
 				while (getline(myfile, line))
@@ -244,7 +249,8 @@ void driver()
 				continue;
 			}
 
-			root.reset(new Node());
+			delete root;
+			root = new Node();
 		}
 		else if (word == "end")
 		{
@@ -263,7 +269,7 @@ void driver()
 
 void test_insertWithSomeLocate()
 {
-	shared_ptr<Node> root(new Node());
+	Node *root = new Node();
 	string word = "sixpence.txt";
 	string line;
 	ifstream myfile(word);
@@ -272,7 +278,8 @@ void test_insertWithSomeLocate()
 	if (myfile.is_open())
 	{
 		// Clear data structure
-		root.reset(new Node());
+		delete root;
+		root = new Node();
 
 		int wordCount = 0;
 		while (getline(myfile, line))
@@ -310,7 +317,9 @@ void test_insertWithSomeLocate()
 	if (myfile.is_open())
 	{
 		// Clear data structure
-		root.reset(new Node());
+		delete root;
+		root = NULL;
+		root = new Node();
 
 		int wordCount = 0;
 		while (getline(myfile, line))
@@ -334,6 +343,8 @@ void test_insertWithSomeLocate()
 		}
 		myfile.close();
 	}
+
+	delete root;
 }
 
 int main()
