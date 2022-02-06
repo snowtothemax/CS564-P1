@@ -318,6 +318,7 @@ void test_insertWithSomeLocate()
 	{
 		// Clear data structure
 		delete root;
+		root = NULL;
 		root = new Node();
 
 		int wordCount = 0;
