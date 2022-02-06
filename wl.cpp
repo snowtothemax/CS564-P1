@@ -313,6 +313,7 @@ void test_insertWithSomeLocate()
 	num = SearchWord("pie", 3, root);
 	cout << num;
 
+	myfile.open("sixpence.txt");
 	if (myfile.is_open())
 	{
 		// Clear data structure
