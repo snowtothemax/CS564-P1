@@ -16,13 +16,13 @@ Node::Node(char val) : data(val),
 					   endOfWord(false) {}
 
 // Destructor
-Node::~Node()
-{
-	for (int i = 0; i < 37; i++)
-	{
-		delete children[i];
-	}
-}
+// Node::~Node()
+// {
+// 	for (int i = 0; i < 37; i++)
+// 	{
+// 		delete children[i];
+// 	}
+// }
 
 /*******************************************************
 	Gets the encoded index for any acceptable character.
