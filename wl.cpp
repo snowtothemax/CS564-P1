@@ -313,7 +313,34 @@ void test_insertWithSomeLocate()
 	num = SearchWord("pie", 3, root);
 	cout << num;
 
-	delete root;
+	if (myfile.is_open())
+	{
+		// Clear data structure
+		delete root;
+		root = new Node();
+
+		int wordCount = 0;
+		while (getline(myfile, line))
+		{
+			stringstream stream(line);
+			string wordToAdd;
+
+			// Add Each word
+			while (stream >> wordToAdd)
+			{
+				wordCount++;
+				// ignore all but apostrophe
+				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '!'), wordToAdd.end());
+				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '?'), wordToAdd.end());
+				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '.'), wordToAdd.end());
+				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), ','), wordToAdd.end());
+				wordToAdd = toLowerCase(wordToAdd);
+
+				InsertWord(wordToAdd, wordCount, root);
+			}
+		}
+		myfile.close();
+	}
 }
 
 int main()
