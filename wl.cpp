@@ -312,6 +312,8 @@ void test_insertWithSomeLocate()
 	cout << num << endl;
 	num = SearchWord("pie", 3, root);
 	cout << num;
+
+	delete root;
 }
 
 int main()
