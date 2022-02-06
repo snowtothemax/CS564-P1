@@ -27,7 +27,7 @@ public:
 
     Node(char val);
 
-    // ~Node();
+    ~Node();
 };
 
 #endif
