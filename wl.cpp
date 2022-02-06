@@ -20,11 +20,7 @@ Node::~Node()
 {
 	for (int i = 0; i < 37; i++)
 	{
-		if (children[i])
-		{
-			cout << "deleting " << data;
-			delete children[i];
-		}
+		delete children[i];
 	}
 }
 
@@ -346,6 +342,8 @@ void test_insertWithSomeLocate()
 		}
 		myfile.close();
 	}
+
+	delete root;
 }
 
 int main()
