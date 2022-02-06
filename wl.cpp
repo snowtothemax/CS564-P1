@@ -72,11 +72,6 @@ void InsertWord(string word, int wordNum, Node *node)
 **************************************/
 int SearchWord(string word, int occurrence, Node *node)
 {
-	if (node == NULL)
-	{
-		return -1;
-	}
-
 	Node *crawl = node;
 
 	for (int i = 0; i < word.length(); i++)
@@ -156,11 +151,8 @@ void driver()
 			if (myfile.is_open())
 			{
 				// Clear data structure
-				if (root != NULL)
-				{
-					delete root;
-					root = new Node();
-				}
+				delete root;
+				root = new Node();
 
 				int wordCount = 0;
 				while (getline(myfile, line))
@@ -179,7 +171,7 @@ void driver()
 						wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), ','), wordToAdd.end());
 						wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '*'), wordToAdd.end());
 						wordToAdd = toLowerCase(wordToAdd);
-						cout << wordToAdd << endl;
+
 						InsertWord(wordToAdd, wordCount, root);
 					}
 				}
