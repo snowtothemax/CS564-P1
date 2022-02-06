@@ -6,14 +6,24 @@ using namespace std;
 */
 
 // Default Constructor
-Node::Node() : data('-'),
+Node::Node() : data(0),
 			   endOfWord(false)
 {
+	for (int i = 0; i < 37; i++)
+	{
+		children[i] = nullptr;
+	}
 }
 
 // Construct Node with data val
 Node::Node(char val) : data(val),
-					   endOfWord(false) {}
+					   endOfWord(false)
+{
+	for (int i = 0; i < 37; i++)
+	{
+		children[i] = nullptr;
+	}
+}
 
 // Destructor
 Node::~Node()
@@ -54,7 +64,7 @@ void InsertWord(string word, int wordNum, Node *node)
 	{
 		int index = getChildIndex(word.at(i));
 
-		if (!crawl->children[index])
+		if (crawl->children[index] == nullptr)
 		{
 			crawl->children[index] = new Node(word.at(i));
 		}
@@ -78,7 +88,7 @@ int SearchWord(string word, int occurrence, Node *node)
 	{
 		int index = getChildIndex(word.at(i));
 
-		if (!crawl->children[index])
+		if (crawl->children[index] == nullptr)
 		{
 			return -1;
 		}
@@ -349,5 +359,5 @@ void test_insertWithSomeLocate()
 
 int main()
 {
-	test_insertWithSomeLocate();
+	driver();
 }
