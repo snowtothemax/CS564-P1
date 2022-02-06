@@ -179,7 +179,7 @@ void driver()
 						wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), ','), wordToAdd.end());
 						wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '*'), wordToAdd.end());
 						wordToAdd = toLowerCase(wordToAdd);
-
+						cout << wordToAdd << endl;
 						InsertWord(wordToAdd, wordCount, root);
 					}
 				}
