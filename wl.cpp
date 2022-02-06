@@ -250,7 +250,7 @@ void driver()
 			}
 
 			delete root;
-			root = NULL;
+			root = new Node();
 		}
 		else if (word == "end")
 		{
@@ -267,53 +267,54 @@ void driver()
 	}
 }
 
-// void test_insertWithSomeLocate()
-// {
-// 	Node *root;
-// 	string word = "sixpence.txt";
-// 	string line;
-// 	ifstream myfile(word);
+void test_insertWithSomeLocate()
+{
+	Node *root = new Node();
+	string word = "sixpence.txt";
+	string line;
+	ifstream myfile(word);
 
-// 	// TEST if file is valid or invalid
-// 	if (myfile.is_open())
-// 	{
-// 		// Clear data structure
-// 		root = new Node();
+	// TEST if file is valid or invalid
+	if (myfile.is_open())
+	{
+		// Clear data structure
+		delete root;
+		root = new Node();
 
-// 		int wordCount = 0;
-// 		while (getline(myfile, line))
-// 		{
-// 			stringstream stream(line);
-// 			string wordToAdd;
+		int wordCount = 0;
+		while (getline(myfile, line))
+		{
+			stringstream stream(line);
+			string wordToAdd;
 
-// 			// Add Each word
-// 			while (stream >> wordToAdd)
-// 			{
-// 				wordCount++;
-// 				// ignore all but apostrophe
-// 				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '!'), wordToAdd.end());
-// 				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '?'), wordToAdd.end());
-// 				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '.'), wordToAdd.end());
-// 				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), ','), wordToAdd.end());
-// 				wordToAdd = toLowerCase(wordToAdd);
+			// Add Each word
+			while (stream >> wordToAdd)
+			{
+				wordCount++;
+				// ignore all but apostrophe
+				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '!'), wordToAdd.end());
+				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '?'), wordToAdd.end());
+				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), '.'), wordToAdd.end());
+				wordToAdd.erase(remove(wordToAdd.begin(), wordToAdd.end(), ','), wordToAdd.end());
+				wordToAdd = toLowerCase(wordToAdd);
 
-// 				InsertWord(wordToAdd, wordCount, root);
-// 			}
-// 		}
-// 		myfile.close();
-// 	}
+				InsertWord(wordToAdd, wordCount, root);
+			}
+		}
+		myfile.close();
+	}
 
-// 	int num = SearchWord("song", 1, root);
-// 	cout << num << endl;
-// 	num = SearchWord("pie", 1, root);
-// 	cout << num << endl;
-// 	num = SearchWord("pie", 2, root);
-// 	cout << num << endl;
-// 	num = SearchWord("pie", 3, root);
-// 	cout << num;
-// }
+	int num = SearchWord("song", 1, root);
+	cout << num << endl;
+	num = SearchWord("pie", 1, root);
+	cout << num << endl;
+	num = SearchWord("pie", 2, root);
+	cout << num << endl;
+	num = SearchWord("pie", 3, root);
+	cout << num;
+}
 
 int main()
 {
-	driver();
+	test_insertWithSomeLocate();
 }
