@@ -22,6 +22,7 @@ Node::~Node()
 	{
 		if (children[i])
 		{
+			cout << "deleting " << data;
 			delete children[i];
 		}
 	}
